@@ -1,0 +1,149 @@
+﻿@model MVCScrapper.ViewModels.FIDCMensalViewModel
+@using MVCScrapper.Models;
+@using MVCScrapper.Services;
+@using MVCScrapper;
+@helper showItems(ICollection<FIDCItem> items)
+{
+    foreach (FIDCItem item in items)
+    {
+        <p class="Item">
+            <span class="Level_@Html.Raw(item.GetLevel()) ">@Html.Raw(item.Label)</span>
+            @if(item.Value != null && item.Value.Length > 0) {
+                <span class="Value">@Html.Raw(item.Value)</span>
+            }
+        </p>
+    }
+}
+@section header {
+    <script>
+        function refreshFIDC() {
+            $("select").attr("disabled", "disabled");
+            $('body').fadeTo('slow', 0.2);
+
+            var serviceId = $('select#ScrapperSelected_Id').val();
+            var competencia = $('select#competencia').val();
+
+            var url = window.location.href.substring(0, window.location.href.indexOf('Mensal') + 6) + '/' + customEncode(serviceId) + '/' + customEncode(competencia);
+
+            window.location.href = url;
+        }
+
+        function customEncode(value) {
+            return value.replace('/','%20')
+        }
+    </script>
+}
+
+<style>
+    .Item {
+        border-bottom: solid 1px #CCCCCC;
+    }
+    
+    .Label {
+        float:left;
+    }
+    
+    .Value {
+        float:right;   
+    }
+
+    .Level_0 {
+        font-size:16px;
+        font-weight:bold;
+        color:black;
+        display:inline-block;
+        margin: 0px 0px 0px 0px;
+    }
+
+    .Level_1 {
+        font-size:14px;
+        font-weight:bold;
+        color:#222222;
+        display:inline-block;
+        margin: 0px 0px 0px 20px;
+    }
+    
+    .Level_2 {
+        color:#444444;
+        font-weight:bold;
+        margin: 0px 0px 0px 40px;
+    }
+    
+    .Level_3 {
+        margin: 0px 0px 0px 60px;
+    }
+    
+    .Level_4 {
+        
+        margin: 0px 0px 0px 80px;
+    }
+    
+    .Level_5 {
+        
+        margin: 0px 0px 0px 100px;
+    }
+</style>
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+<section class="contact">
+    <header>
+        <h3>Fontes</h3>
+    </header>
+    <p>
+        <span class="label">Tipos:</span>
+        <span>
+            @Html.DropDownListFor(s => s.ScrapperSelected.Id, new SelectList(Model.Scrappers, "Id", "Label", Model.ScrapperSelected.Id) , new { onchange = "refreshFIDC()" })
+        </span>
+    </p>
+</section>
+@if (Model.ScrapperSelected != null)
+{
+    List<ScrapperFilter> filters = Model.ScrapperSelected.Filters;
+    FIDCResult result = Model.ScrapperSelected.Result;
+    <section class="contact">
+        <header>
+            <h3>Filtros</h3>
+        </header>
+        @foreach (ScrapperFilter filter in filters)
+        {
+            <p>
+                <span class="label">@filter.Label:</span>
+                @if(filter.AvailableValues != null) {
+                    <span class="filter">
+                        @{
+                            // Hack: bug de MVC
+                            var combo = Html.DropDownList(filter.ID, new SelectList(filter.AvailableValues, "Value", "Label", filter.Value), new { onchange = "refreshFIDC()" });
+                        }
+                        @Html.Raw(combo.ToString().Replace("value=\"" + filter.Value + "\"","selected=\"selected\" value=\"" + filter.Value + "\""))
+                    </span>
+                } else {
+                    <span>@Html.TextBox(filter.ID, filter.Value, new { onchange = "refreshFIDC()" })</span>
+                }
+            </p>
+        }
+    </section>
+
+    <section class="contact">
+        <header>
+            <h3>Resultados - Sumário</h3>
+        </header>
+        <p>
+            <span class="label">Actualizado:</span>
+            <span>@result.TimeStamp</span>
+        </p>
+        <p>
+            <span class="label">Quantidade:</span>
+            <span>@result.Items.Count</span>
+        </p>
+    </section>
+
+    <section class="contact">
+        <header>
+            <h3>Resultados</h3>
+        </header>
+        @showItems(result.Items)
+    </section>
+}
