@@ -36,6 +36,7 @@ C:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScra
 C:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\bin\System.Web.WebPages.Razor.xml
 C:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\obj\Debug\MVCScrapper.dll
 C:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\obj\Debug\MVCScrapper.pdb
+<<<<<<< HEAD
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\bin\MVCScrapper.dll
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\bin\MVCScrapper.pdb
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\bin\Antlr3.Runtime.dll
@@ -74,3 +75,5 @@ D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScra
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\bin\System.Web.WebPages.Razor.xml
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\obj\Debug\MVCScrapper.dll
 D:\Users\NunoRodrigues\Documents\Visual Studio 2012\Projects\MVCScrapper\MVCScrapper\obj\Debug\MVCScrapper.pdb
+=======
+>>>>>>> MVCScrapper/master
